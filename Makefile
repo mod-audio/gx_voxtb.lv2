@@ -24,8 +24,8 @@
 	CREATEDEB = yes '' | dh_make -s -n -e $(USER)@org -p $(DEBNAME) -c gpl >/dev/null
 	BUILDDEB = dpkg-buildpackage -rfakeroot -b 2>/dev/null | grep dpkg-deb 
 	# set compile flags
-	CXXFLAGS += -I. -I../DSP -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce $(SSE_CFLAGS)
-	LDFLAGS += -I. -I../DSP -shared -Llibrary -lc -lm  -fPIC -DPIC  
+	CXXFLAGS += -I. -I../DSP -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce $(SSE_CFLAGS)
+	LDFLAGS += -shared -lm
 	# invoke build files
 	OBJECTS = $(NAME).cpp 
 	## output style (bash colours)
