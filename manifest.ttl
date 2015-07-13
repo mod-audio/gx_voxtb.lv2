@@ -23,4 +23,5 @@
 <http://guitarix.sourceforge.net/plugins/gx_voxtb_#_voxtb_>
     a lv2:Plugin ;
     lv2:binary <gx_voxtb.so>  ;
-    rdfs:seeAlso <gx_voxtb.ttl> .
+    rdfs:seeAlso <gx_voxtb.ttl> ,
+        <modgui.ttl> .

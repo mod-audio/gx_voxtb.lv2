@@ -24,8 +24,8 @@
 	CREATEDEB = yes '' | dh_make -s -n -e $(USER)@org -p $(DEBNAME) -c gpl >/dev/null
 	BUILDDEB = dpkg-buildpackage -rfakeroot -b 2>/dev/null | grep dpkg-deb 
 	# set compile flags
-	CXXFLAGS = -I. -I../DSP -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce $(SSE_CFLAGS)
-	LDFLAGS = -I. -I../DSP -shared -Llibrary -lc -lm  -fPIC -DPIC  
+	CXXFLAGS += -I. -I../DSP -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce $(SSE_CFLAGS)
+	LDFLAGS += -I. -I../DSP -shared -Llibrary -lc -lm  -fPIC -DPIC  
 	# invoke build files
 	OBJECTS = $(NAME).cpp 
 	## output style (bash colours)
@@ -38,6 +38,7 @@
 all : $(NAME)
 	@mkdir -p ./$(BUNDLE)
 	@cp ./*.ttl ./$(BUNDLE)
+	@cp -r ./modgui ./$(BUNDLE)
 	@mv ./*.so ./$(BUNDLE)
 	@if [ -f ./$(BUNDLE)/$(NAME).so ]; then echo $(BLUE)"build finish, now run make install"; \
 	else echo $(RED)"sorry, build failed"; fi
@@ -56,7 +57,7 @@ dist-clean :
 
 install : all
 	@mkdir -p $(DESTDIR)$(INSTALL_DIR)/$(BUNDLE)
-	install ./$(BUNDLE)/* $(DESTDIR)$(INSTALL_DIR)/$(BUNDLE)
+	@cp -r ./$(BUNDLE)/* $(DESTDIR)$(INSTALL_DIR)/$(BUNDLE)
 	@echo ". ." $(BLUE)", done"$(NONE)
 
     #@create tar ball
