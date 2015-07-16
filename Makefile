@@ -1,18 +1,21 @@
-	
+	ifndef INSTALL_PATH
 	# check if user is root
 	user = $(shell whoami)
 	ifeq ($(user),root)
 	INSTALL_DIR = /usr/lib/lv2
-	else 
+	else
 	INSTALL_DIR = ~/.lv2
 	endif
+	endif
 
+	ifndef SSE_CFLAGS
 	ifneq (cat /proc/cpuinfo | grep sse2 >/dev/null,)
 	SSE_CFLAGS = -msse2 -mfpmath=sse
 	else ifneq (cat /proc/cpuinfo | grep sse >/dev/null,)
 	SSE_CFLAGS = -msse -mfpmath=sse
 	else
 	SSE_CFLAGS = ""
+	endif
 	endif
 
 	# set bundle name
