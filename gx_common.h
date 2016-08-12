@@ -29,30 +29,6 @@
 #include <cstring>
 #include <unistd.h>
 
-///////////////////////// DENORMAL PROTECTION WITH SSE /////////////////
-
-#ifdef __SSE__
-/* On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
-   flags to avoid costly denormals */
-#ifdef __SSE3__
-#include <pmmintrin.h>
-inline void AVOIDDENORMALS()
-{
-  _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
-  _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);
-}
-#else
-#include <xmmintrin.h>
-inline void AVOIDDENORMALS()
-{
-  _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
-}
-#endif //__SSE3__
-
-#else
-inline void AVOIDDENORMALS() {}
-#endif //__SSE__
-
 ///////////////////////// memlock rt ///////////////////////////////////
 
 #include "gx_compiler.h"
